@@ -1,7 +1,10 @@
 import java.io.File;
+import java.util.Vector;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
@@ -14,9 +17,32 @@ public class Main {
 		
 		try (Transaction tx = db.beginTx()) {
 			
-			Node node1= db.findNode(Labels.Persona, "nombre", "Per1");
-			System.out.println(node1.getId()); //el Id de Per1 es 0
+			//Node node1= db.findNode(Labels.Persona, "nombre", "Per1");
+			//System.out.println(node1.getId()); //el Id de Per1 es 0
+			Vector<Integer> vector1= new Vector<Integer>();
+			Vector<Long> vector2= new Vector<Long>();
+			for(int i=0; i<196; i++){
+			try{
+				Relationship rel= db.getRelationshipById(i);
+				long cant= (long) rel.getProperty("cant");
+				vector1.addElement(i);
+				vector2.addElement(cant);
+				//System.out.println(cant);
+			}
+			catch (Exception e)
+			{
+				//System.out.println(i+" no es relación");
+			}}
 			
+			String masD6= "Relaciones con más de 6 correos \n";
+			for(int j=0; j<vector1.size(); j++){
+				if(vector2.get(j)>6){
+				masD6= masD6 + db.getRelationshipById(vector1.get(j)).getStartNode().getProperty("nombre");
+				masD6= masD6 + " envió "+ vector2.get(j) + " correos a: ";
+				masD6= masD6 + db.getRelationshipById(vector1.get(j)).getEndNode().getProperty("nombre");
+				masD6= masD6 + "\n";
+			}}
+			System.out.println(masD6);
 			tx.success();
 		}
 	}
