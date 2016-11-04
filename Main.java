@@ -34,6 +34,7 @@ public class Main {
 				//System.out.println(i+" no es relación");
 			}}
 			
+			//relaciones con más de 6 correos
 			String masD6= "Relaciones con más de 6 correos \n";
 			for(int j=0; j<vector1.size(); j++){
 				if(vector2.get(j)>6){
@@ -43,6 +44,19 @@ public class Main {
 				masD6= masD6 + "\n";
 			}}
 			System.out.println(masD6);
+			
+			//eliminar relaciones de autoenvío 
+			
+			for(int k=0; k<vector1.size(); k++)
+			{
+				Relationship r= db.getRelationshipById(vector1.get(k));
+				if (r.getStartNode() == r.getEndNode())
+				{
+					System.out.println(r.getId());
+					System.out.println(r.getStartNode().getProperty("nombre")+" a "+ r.getEndNode().getProperty("nombre"));
+					//r.delete();
+				}
+			}
 			tx.success();
 		}
 	}
