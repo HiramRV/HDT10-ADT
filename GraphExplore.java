@@ -123,8 +123,50 @@
     		graph.addEdge("P14-10", "Per14", "Per10");
     		graph.addEdge("P14-11", "Per14", "Per11");
     		graph.addEdge("P14-12", "Per14", "Per12");
-///////////////////////////////////////
+    		
+/////////////////////////////////////////////////////////
+    		Graph graph2 = new MultiGraph("Grafo 2");
+    		graph2.addNode("Per2" );
+    		graph2.addNode("Per3" );
+    		graph2.addNode("Per4" );
+    		graph2.addNode("Per5" );
+    		graph2.addNode("Per6" );
+    		graph2.addNode("Per7" );
+    		graph2.addNode("Per8" );
+    		graph2.addNode("Per9" );
+    		graph2.addNode("Per10" );
+    		graph2.addNode("Per11" );
+    		graph2.addNode("Per12" );
+    		graph2.addNode("Per13" );
+    		graph2.addNode("Per14" );
+    		
+    		graph2.addEdge("P2-3", "Per2", "Per3");
+    		graph2.addEdge("P4-6", "Per4", "Per6");
+    		graph2.addEdge("P4-14", "Per4", "Per14");
+    		graph2.addEdge("P5-13", "Per5", "Per13");
+    		graph2.addEdge("P5-14", "Per5", "Per14");
+    		graph2.addEdge("P6-12", "Per6", "Per12");
+    		graph2.addEdge("P6-13", "Per6", "Per13");
+    		graph2.addEdge("P7-8", "Per7", "Per8");
+    		graph2.addEdge("P7-9", "Per7", "Per9");
+    		graph2.addEdge("P8-7", "Per8", "Per7");
+    		graph2.addEdge("P8-9", "Per8", "Per9");
+    		graph2.addEdge("P9-7", "Per9", "Per7");
+    		graph2.addEdge("P9-8", "Per9", "Per8");
+    		graph2.addEdge("P10-4", "Per10", "Per4");
+    		graph2.addEdge("P10-5", "Per10", "Per5");
+    		graph2.addEdge("P10-13", "Per10", "Per13");
+    		graph2.addEdge("P11-13", "Per11", "Per13");
+    		graph2.addEdge("P12-6", "Per12", "Per6");
+    		graph2.addEdge("P12-13", "Per12", "Per13");
+    		graph2.addEdge("P12-14", "Per12", "Per14");
+    		graph2.addEdge("P14-4", "Per14", "Per4");
+    		graph2.addEdge("P14-11", "Per14", "Per11");
+    		
     		graph.display();
+    		graph2.display();
+    		
+    		
         }
         
         /*public void explore(Node source) {
