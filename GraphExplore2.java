@@ -59,8 +59,11 @@ public GraphExplore2(){
         node.addAttribute("ui.label", node.getId());
     }
 
-    explore(graph.getNode("B"));
+    explore(graph.getNode("Per2"));
+    explore(graph.getNode("Per4"));
+    explore(graph.getNode("Per8"));
 }
+
 
 public void explore(Node source) {
     Iterator<? extends Node> k = source.getBreadthFirstIterator();
@@ -68,7 +71,7 @@ public void explore(Node source) {
     while (k.hasNext()) {
         Node next = k.next();
         next.setAttribute("ui.class", "marked");
-        sleep();
+        //sleep();
     }
 }
 
