@@ -59,14 +59,14 @@ public class Main {
 			}
 			
 			//PageRank
-			Vector<Integer> PR1= new Vector<Integer>();
-			Vector<Integer> C= new Vector<Integer>();
+			Vector<Double> PR1= new Vector<Double>();
+			Vector<Double> C= new Vector<Double>();
 			for (int l=0; l<14; l++)
 			{
-				PR1.add(l, db.getNodeById(l).getDegree(Direction.INCOMING));
-				System.out.println("PR1 "+l+": "+PR1.get(l));
-				C.add(l, db.getNodeById(l).getDegree(Direction.OUTGOING));
-				System.out.println("C "+l+": "+C.get(l));
+				PR1.add(l, (double)db.getNodeById(l).getDegree(Direction.INCOMING));
+				//System.out.println("PR1 "+l+": "+PR1.get(l));
+				C.add(l, (double)db.getNodeById(l).getDegree(Direction.OUTGOING));
+				//System.out.println("C "+l+": "+C.get(l));
 			}
 			
 			Vector<Double> PR2= new Vector<Double>();
@@ -75,7 +75,7 @@ public class Main {
 			{
 				Relationship r2= db.getRelationshipById(vectorId.get(m));
 				int n1= (int) r2.getEndNode().getId();
-				int n2= (int) r2.getEndNode().getId();
+				int n2= (int) r2.getStartNode().getId();
 				if (n1==0)
 					c1=c1+((PR1.get(n2))/(C.get(n2)));
 				if (n1==1)
@@ -94,7 +94,7 @@ public class Main {
 					c8=c8+((PR1.get(n2))/(C.get(n2)));
 				if (n1==8)
 					c9=c9+((PR1.get(n2))/(C.get(n2)));
-				if (n1==8)
+				if (n1==9)
 					c10=c10+((PR1.get(n2))/(C.get(n2)));
 				if (n1==10)
 					c11=c11+((PR1.get(n2))/(C.get(n2)));
@@ -119,7 +119,7 @@ public class Main {
 				PR2.addElement(c12);
 				PR2.addElement(c13);
 				PR2.addElement(c14);
-				
+				//System.out.println(c1 +"\n"+ c2 +"\n"+ c3 +"\n"+c4 +"\n"+c5 +"\n"+c6 +"\n"+c7 +"\n"+c8 +"\n"+c9 +"\n"+c10 +"\n"+c11 +"\n"+c12 +"\n"+c13 +"\n"+c14 +"\n");
 				
 			Vector<Double> PR3= new Vector<Double>();
 			for (int p=0; p<14; p++)
@@ -128,7 +128,7 @@ public class Main {
 				p2= (PR2.get(p))*0.85;
 				p2= 0.15+p2;
 				PR3.add(p2);
-				System.out.println("PR3 "+p+": "+p2);
+				//System.out.println("PR3 "+p+": "+p2);
 			}
 			
 			Vector<Integer> PR4= new Vector<Integer>();
@@ -138,9 +138,9 @@ public class Main {
 				int k=-1;
 				for(int j=0; j<PR3.size(); j++)
 				{
-					System.out.println("it"+j+" k= "+k);
+					//System.out.println("it"+j+" k= "+k);
 					double d= PR3.get(j);
-					System.out.println("b="+b+" d="+d);
+					//System.out.println("b="+b+" d="+d);
 					if (d>=b)
 					{
 						b=d;
@@ -154,7 +154,7 @@ public class Main {
 			System.out.println("Page Rank");
 			for (int i=0; i<14; i++)
 			{
-				System.out.println(PR4.get(i));
+				System.out.println(" Per "+(PR4.get(i)+1));
 			}
 			tx.success();
 		}
