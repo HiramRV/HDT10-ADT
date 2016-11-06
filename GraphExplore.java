@@ -10,27 +10,6 @@
         }
 
         public GraphExplore() {
-            /*Graph graph = new SingleGraph("tutorial 1");
-
-            graph.addAttribute("ui.stylesheet", styleSheet);
-            graph.setAutoCreate(true);
-            graph.setStrict(false);
-            graph.display();
-
-            graph.addEdge("AB", "A", "B");
-            graph.addEdge("BC", "B", "C");
-            graph.addEdge("CA", "C", "A");
-            graph.addEdge("AD", "A", "D");
-            graph.addEdge("DE", "D", "E");
-            graph.addEdge("DF", "D", "F");
-            graph.addEdge("EF", "E", "F");
-
-            for (Node node : graph) {
-                node.addAttribute("ui.label", node.getId());
-            }
-
-            explore(graph.getNode("A"));
-            */
         	
         	//System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer"); 
     		Graph graph = new MultiGraph("Grafo 1");
@@ -141,7 +120,7 @@
                 node.addAttribute("ui.label", node.getId());
             }
 
-            explore(graph.getNode("A"));
+            explore(graph.getNode("Per1"));
             
         }
         
