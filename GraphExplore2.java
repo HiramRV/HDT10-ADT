@@ -1,22 +1,41 @@
- import java.util.Iterator;
+/**
+*GraphExplore2, clase que muestra el grafo reducido 
+*@version: 2.0
+*@author: Andrea Maybell Pena 15127 // Steven Rubio, 15044 
+*@since 2016-11-07
+*/
+
+import java.util.Iterator;
     import org.graphstream.graph.*;
     import org.graphstream.graph.implementations.*;
 
     
 public class GraphExplore2 {
-	public static void main(String args[]) {
-        new GraphExplore2();
-	}
+	//public static void main(String args[]) {
+	
+	/**Atributos***/
+	private MultiGraph graph;
+	//new GraphExplore();
+//}
 
+	
+	/**
+ 	 * Constructor sin parametros, crea un grafo con multiples relaciones
+ 	 * @param ninguno
+ 	 * @return algo en pantalla
+ 	 */
 public GraphExplore2(){
 
 
 	Graph graph = new MultiGraph("Grafo 2");
+	//Atributos de los nodos
 	graph.addAttribute("ui.stylesheet", styleSheet);
 	graph.setAutoCreate(true);
     graph.setStrict(false);
+  //Mostrar el grafo en pantalla
     graph.display();
     
+  //Se crean los nodos
     graph.addNode("Per2" );
 	graph.addNode("Per3" );
 	graph.addNode("Per4" );
@@ -31,6 +50,7 @@ public GraphExplore2(){
 	graph.addNode("Per13" );
 	graph.addNode("Per14" );
 	
+	//Se crean las realciones
 	graph.addEdge("P2-3", "Per2", "Per3");
 	graph.addEdge("P4-6", "Per4", "Per6");
 	graph.addEdge("P4-14", "Per4", "Per14");
@@ -54,7 +74,7 @@ public GraphExplore2(){
 	graph.addEdge("P14-4", "Per14", "Per4");
 	graph.addEdge("P14-11", "Per14", "Per11");
 	
-    
+	//Se agregan atributos a los nodos
     for (Node node : graph) {
         node.addAttribute("ui.label", node.getId());
     }
@@ -64,28 +84,27 @@ public GraphExplore2(){
     explore(graph.getNode("Per8"));
 }
 
-
+/**
+	 * Recorre todos los nodos y les agrega los atributos que mostraran 
+	 * @param Node
+	 * @return void
+	 */
 public void explore(Node source) {
     Iterator<? extends Node> k = source.getBreadthFirstIterator();
 
     while (k.hasNext()) {
         Node next = k.next();
         next.setAttribute("ui.class", "marked");
-        //sleep();
     }
 }
 
-
-protected void sleep() {
-    try { Thread.sleep(1000); } catch (Exception e) {}
-}
-
+//Skin de los nodos 
 protected String styleSheet =
     "node {" +
     "	fill-color: black;" +
     "}" +
     "node.marked {" +
-    "	fill-color: red;" +
+    "	fill-color: green;" +
     "}";
 }
 
