@@ -158,7 +158,10 @@ public class Main {
 			}
 			
 			//Djistra
-			int indNodo=0;
+			System.out.println(" ");
+			int indNodo=3;
+			int iNodo=indNodo;
+			int fNodo=1;
 			long[] nodos= {9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999};
 			boolean[] temporales={false,false,false,false,false,false,false,false,false,false,false,false,false,false};
 			int[] desde= new int[14];
@@ -217,6 +220,12 @@ public class Main {
 			{
 				System.out.println(nodos[i]+" "+desde[i]+" "+ temporales[i]);
 			}
+			
+			long cor=nodos[fNodo];
+			if(cor==9999)
+				System.out.println("Per"+(iNodo+1)+" no le ha enviado correos a Per"+(fNodo+1));
+			else
+				System.out.println("La cantidad mínima de correos enviados de Per"+(iNodo+1)+" a Per"+(fNodo+1)+" es: "+cor);
 			
 			tx.success();
 		}
