@@ -1,23 +1,40 @@
-
+/**
+*GraphExplore, clase que muestra el grafo completo 
+*@version: 2.0
+*@author: Andrea Maybell Pena 15127 // Steven Rubio, 15044 
+*@since 2016-11-07
+*/
  import java.util.Iterator;
+ import java.util.Scanner;
+ 
+ 
     import org.graphstream.graph.*;
     import org.graphstream.graph.implementations.*;
 
     public class GraphExplore {
-        public static void main(String args[]) {
-            new GraphExplore();
-            
-        }
-
+    	//public static void main(String args[]) {
+    	
+    		/**Atributos***/
+    		private MultiGraph graph;
+    		//new GraphExplore2();
+	//}
+    		/**
+    	 	 * Constructor sin parametros, crea un grafo con multiples relaciones
+    	 	 * @param ninguno
+    	 	 * @return algo en pantalla
+    	 	 */
         public GraphExplore() {
         	
-        	//System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer"); 
+        	
     		Graph graph = new MultiGraph("Grafo 1");
+    		//Atributos de los nodos
     		graph.addAttribute("ui.stylesheet", styleSheet);
     		graph.setAutoCreate(true);
             graph.setStrict(false);
-            graph.display();
+            //Mostrar el grafo en pantalla
+            graph.display(true);
                
+            //Se crean los nodos
     		graph.addNode("Per1" );
     		graph.addNode("Per2" );
     		graph.addNode("Per3" );
@@ -32,6 +49,8 @@
     		graph.addNode("Per12" );
     		graph.addNode("Per13" );
     		graph.addNode("Per14" );
+    		
+    		//Se crean las realciones 
     		/////////////////////////////////////
     		graph.addEdge("P1-3", "Per1", "Per3");
     		graph.addEdge("P1-4", "Per1", "Per4");
@@ -115,36 +134,37 @@
 /////////////////////////////////////////////////////////
     		
     		
-    		
+    		//Se agregan atributos a los nodos
     		for (Node node : graph) {
                 node.addAttribute("ui.label", node.getId());
             }
 
             explore(graph.getNode("Per1"));
+           
             
         }
         
         
+        /**
+     	 * Recorre todos los nodos y les agrega los atributos que mostraran 
+     	 * @param Node
+     	 * @return void
+     	 */
         public void explore(Node source) {
             Iterator<? extends Node> k = source.getBreadthFirstIterator();
 
             while (k.hasNext()) {
                 Node next = k.next();
                 next.setAttribute("ui.class", "marked");
-                //sleep();
             }
         }
 
-        
-        protected void sleep() {
-            try { Thread.sleep(1000); } catch (Exception e) {}
-        }
-
+        // Skin de los nodos 
         protected String styleSheet =
             "node {" +
             "	fill-color: black;" +
             "}" +
             "node.marked {" +
-            "	fill-color: red;" +
+            "	fill-color: blue;" +
             "}";
     }
