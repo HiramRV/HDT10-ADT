@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Scanner;
 import java.util.Vector;
 
 import org.neo4j.graphdb.Direction;
@@ -17,94 +18,121 @@ public class Main {
 		
 		try (Transaction tx = db.beginTx()) {
 			
-			//Node node1= db.findNode(Labels.Persona, "nombre", "Per1");
-			//System.out.println(node1.getId()); //el Id de Per1 es 0
 			Vector<Integer> vectorId= new Vector<Integer>();
 			Vector<Long> vectorCant= new Vector<Long>();
 			for(int i=0; i<196; i++){
-			try{
-				Relationship rel= db.getRelationshipById(i);
-				long cant= (long) rel.getProperty("cant");
-				vectorId.addElement(i);
-				vectorCant.addElement(cant);
-				//System.out.println(cant);
-			}
-			catch (Exception e)
-			{
-				//System.out.println(i+" no es relación");
-			}}
-			
-			//relaciones con más de 6 correos
-			String masD6= "Relaciones con más de 6 correos \n";
-			for(int j=0; j<vectorId.size(); j++){
-				if(vectorCant.get(j)>6){
-				masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getStartNode().getProperty("nombre");
-				masD6= masD6 + " envió "+ vectorCant.get(j) + " correos a: ";
-				masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getEndNode().getProperty("nombre");
-				masD6= masD6 + "\n";
-			}}
-			System.out.println(masD6);
-			
-			//eliminar relaciones de autoenvío 
-			
-			for(int k=0; k<vectorId.size(); k++)
-			{
-				Relationship r= db.getRelationshipById(vectorId.get(k));
-				if (r.getStartNode() == r.getEndNode())
-				{
-					System.out.println(r.getId());
-					System.out.println(r.getStartNode().getProperty("nombre")+" a "+ r.getEndNode().getProperty("nombre"));
-					//r.delete();
+				try{
+					Relationship rel= db.getRelationshipById(i);
+					long cant= (long) rel.getProperty("cant");
+					vectorId.addElement(i);
+					vectorCant.addElement(cant);
+					//System.out.println(cant);
 				}
-			}
+				catch (Exception e)
+				{
+					//System.out.println(i+" no es relación");
+				}}
 			
-			//PageRank
-			Vector<Double> PR1= new Vector<Double>();
-			Vector<Double> C= new Vector<Double>();
-			for (int l=0; l<14; l++)
-			{
-				PR1.add(l, (double)db.getNodeById(l).getDegree(Direction.INCOMING));
-				//System.out.println("PR1 "+l+": "+PR1.get(l));
-				C.add(l, (double)db.getNodeById(l).getDegree(Direction.OUTGOING));
-				//System.out.println("C "+l+": "+C.get(l));
-			}
+		Scanner scan= new Scanner(System.in);
+		int opcion=0;
+		int val=0;
+		while (val<=3)
+		{
+			System.out.println(" ");
+			System.out.println("Seleccione la accion que desea realizar:");
+			System.out.println("1. Ver grafo completo");
+			System.out.println("2. Ver relaciones con más de 6 correos");
+			System.out.println("3. Eliminar relaciones de auto-envio de correos");
+			System.out.println("4. Ver importancia de personas en la red de comunicación con métrica Page Rang");
+			System.out.println("5. Ver personas más y menos comunicadas");
+			System.out.println("6. Ver cantidad de correos entre personas");
+			System.out.println("7. Salir");
 			
-			Vector<Double> PR2= new Vector<Double>();
-			double c1=0,c2=0,c3=0,c4=0,c5=0,c6=0,c7=0,c8=0,c9=0,c10=0,c11=0,c12=0,c13=0,c14=0;
-			for (int m=0; m<vectorId.size(); m++)
-			{
-				Relationship r2= db.getRelationshipById(vectorId.get(m));
-				int n1= (int) r2.getEndNode().getId();
-				int n2= (int) r2.getStartNode().getId();
-				if (n1==0)
-					c1=c1+((PR1.get(n2))/(C.get(n2)));
-				if (n1==1)
-					c2=c2+((PR1.get(n2))/(C.get(n2)));
-				if (n1==2)
-					c3=c3+((PR1.get(n2))/(C.get(n2)));
-				if (n1==3)
-					c4=c4+((PR1.get(n2))/(C.get(n2)));
-				if (n1==4)
-					c5=c5+((PR1.get(n2))/(C.get(n2)));
-				if (n1==5)
-					c6=c6+((PR1.get(n2))/(C.get(n2)));
-				if (n1==6)
-					c7=c7+((PR1.get(n2))/(C.get(n2)));
-				if (n1==7)
-					c8=c8+((PR1.get(n2))/(C.get(n2)));
-				if (n1==8)
-					c9=c9+((PR1.get(n2))/(C.get(n2)));
-				if (n1==9)
-					c10=c10+((PR1.get(n2))/(C.get(n2)));
-				if (n1==10)
-					c11=c11+((PR1.get(n2))/(C.get(n2)));
-				if (n1==11)
-					c12=c12+((PR1.get(n2))/(C.get(n2)));
-				if (n1==12)
-					c13=c13+((PR1.get(n2))/(C.get(n2)));
-				if (n1==13)
-					c14=c14+((PR1.get(n2))/(C.get(n2)));
-			}
+			try{
+				opcion= scan.nextInt();
+				switch(opcion){
+				
+				case 1:
+				GraphExplore g1= new GraphExplore();
+				break;
+				
+				case 2:
+				GraphExplore2 g2= new GraphExplore2();
+					//relaciones con más de 6 correos
+					/*String masD6= "Relaciones con más de 6 correos \n";
+					for(int j=0; j<vectorId.size(); j++){
+						if(vectorCant.get(j)>6){
+							masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getStartNode().getProperty("nombre");
+							masD6= masD6 + " envió "+ vectorCant.get(j) + " correos a: ";
+							masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getEndNode().getProperty("nombre");
+							masD6= masD6 + "\n";
+						}}
+					System.out.println(masD6);*/
+				break;
+				
+				case 3: 
+				//eliminar relaciones de autoenvío 
+				for(int k=0; k<vectorId.size(); k++)
+				{
+					Relationship r= db.getRelationshipById(vectorId.get(k));
+					if (r.getStartNode() == r.getEndNode())
+					{
+						System.out.println(r.getId());
+						System.out.println(r.getStartNode().getProperty("nombre")+" a "+ r.getEndNode().getProperty("nombre"));
+						r.delete();
+					}
+				}
+				System.out.println("Se han eliminado las relaciones de autoenvío exitosamente");
+				break;
+			
+				case 4:
+				//PageRank
+				Vector<Double> PR1= new Vector<Double>();
+				Vector<Double> C= new Vector<Double>();
+				for (int l=0; l<14; l++)
+				{
+					PR1.add(l, (double)db.getNodeById(l).getDegree(Direction.INCOMING));
+					//System.out.println("PR1 "+l+": "+PR1.get(l));
+					C.add(l, (double)db.getNodeById(l).getDegree(Direction.OUTGOING));
+					//System.out.println("C "+l+": "+C.get(l));
+				}
+			
+				Vector<Double> PR2= new Vector<Double>();
+				double c1=0,c2=0,c3=0,c4=0,c5=0,c6=0,c7=0,c8=0,c9=0,c10=0,c11=0,c12=0,c13=0,c14=0;
+				for (int m=0; m<vectorId.size(); m++)
+				{
+					Relationship r2= db.getRelationshipById(vectorId.get(m));
+					int n1= (int) r2.getEndNode().getId();
+					int n2= (int) r2.getStartNode().getId();
+					if (n1==0)
+						c1=c1+((PR1.get(n2))/(C.get(n2)));
+					if (n1==1)
+						c2=c2+((PR1.get(n2))/(C.get(n2)));
+					if (n1==2)
+						c3=c3+((PR1.get(n2))/(C.get(n2)));
+					if (n1==3)
+						c4=c4+((PR1.get(n2))/(C.get(n2)));
+					if (n1==4)
+						c5=c5+((PR1.get(n2))/(C.get(n2)));
+					if (n1==5)
+						c6=c6+((PR1.get(n2))/(C.get(n2)));
+					if (n1==6)
+						c7=c7+((PR1.get(n2))/(C.get(n2)));
+					if (n1==7)
+						c8=c8+((PR1.get(n2))/(C.get(n2)));
+					if (n1==8)
+						c9=c9+((PR1.get(n2))/(C.get(n2)));
+					if (n1==9)
+						c10=c10+((PR1.get(n2))/(C.get(n2)));
+					if (n1==10)
+						c11=c11+((PR1.get(n2))/(C.get(n2)));
+					if (n1==11)
+						c12=c12+((PR1.get(n2))/(C.get(n2)));
+					if (n1==12)
+						c13=c13+((PR1.get(n2))/(C.get(n2)));
+					if (n1==13)
+						c14=c14+((PR1.get(n2))/(C.get(n2)));
+				}
 				PR2.addElement(c1);
 				PR2.addElement(c2);
 				PR2.addElement(c3);
@@ -121,114 +149,165 @@ public class Main {
 				PR2.addElement(c14);
 				//System.out.println(c1 +"\n"+ c2 +"\n"+ c3 +"\n"+c4 +"\n"+c5 +"\n"+c6 +"\n"+c7 +"\n"+c8 +"\n"+c9 +"\n"+c10 +"\n"+c11 +"\n"+c12 +"\n"+c13 +"\n"+c14 +"\n");
 				
-			Vector<Double> PR3= new Vector<Double>();
-			for (int p=0; p<14; p++)
-			{
-				double p2;
-				p2= (PR2.get(p))*0.85;
-				p2= 0.15+p2;
-				PR3.add(p2);
-				//System.out.println("PR3 "+p+": "+p2);
-			}
-			
-			Vector<Integer> PR4= new Vector<Integer>();
-			for (int i=0; i<14; i++)
-			{
-				double b= PR3.get(0);
-				int k=-1;
-				for(int j=0; j<PR3.size(); j++)
+				Vector<Double> PR3= new Vector<Double>();
+				for (int p=0; p<14; p++)
 				{
-					//System.out.println("it"+j+" k= "+k);
-					double d= PR3.get(j);
-					//System.out.println("b="+b+" d="+d);
-					if (d>=b)
-					{
-						b=d;
-						k=j;
-					}
+					double p2;
+					p2= (PR2.get(p))*0.85;
+					p2= 0.15+p2;
+					PR3.add(p2);
+					//System.out.println("PR3 "+p+": "+p2);
 				}
-				PR4.add(k);
-				PR3.set(k,0.0);
-			}
 			
-			System.out.println("Page Rank");
-			for (int i=0; i<14; i++)
-			{
-				System.out.println(" Per "+(PR4.get(i)+1));
-			}
-			
-			//Djistra
-			System.out.println(" ");
-			int indNodo=3;
-			int iNodo=indNodo;
-			int fNodo=1;
-			long[] nodos= {9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999};
-			boolean[] temporales={false,false,false,false,false,false,false,false,false,false,false,false,false,false};
-			int[] desde= new int[14];
-			
-			nodos[indNodo]=0;
-			desde[indNodo]=indNodo;
-			//temporales[indNodo]=true;
-			
-			for(int z=0; z<14; z++)
-			{
-				//establecer nodos temporales
-				for(int i=0; i<vectorId.size(); i++)
+				Vector<Integer> PR4= new Vector<Integer>();
+				for (int i=0; i<14; i++)
 				{
-					//System.out.println("LOOP "+i);
-					//System.out.println("indNodo: "+indNodo);
-					Relationship r3= db.getRelationshipById(vectorId.get(i));
-					int nA= (int)r3.getStartNode().getId();
-					int nB= (int)r3.getEndNode().getId();
-					long l1= (long) r3.getProperty("cant");
-					
-					if(nA==indNodo)
+					double b= PR3.get(0);
+					int k=-1;
+					for(int j=0; j<PR3.size(); j++)
 					{
-						if (nodos[nB]>(nodos[indNodo]+l1))
-						{
-							nodos[nB]=nodos[indNodo]+l1;
-							desde[nB]=indNodo;
-						}
-					}
-				}
-				// encontrar el menor de los nodos temporales
-				long b= 10000;
-				int k=-1;
-				for(int j=0; j<nodos.length; j++)
-				{
-					//System.out.println("it"+j+" k= "+k);
-					long d= nodos[j];
-					//System.out.println("b="+b+" d="+d);
-					if(temporales[j]==false)
-					{
-						if (d<=b)
+						//System.out.println("it"+j+" k= "+k);
+						double d= PR3.get(j);
+						//System.out.println("b="+b+" d="+d);
+						if (d>=b)
 						{
 							b=d;
 							k=j;
 						}
 					}
+					PR4.add(k);
+					PR3.set(k,0.0);
 				}
-				//System.out.println("k= "+k);
-				// establecer minimo como fijo
-				temporales[k]=true;
-				// cambiar nodo de partida
-				indNodo=k;		
+			
+				System.out.println("Page Rank");
+				for (int i=0; i<14; i++)
+				{
+					System.out.println(" Per "+(PR4.get(i)+1));
+				}
+			
+				break;
 				
-			}
+				case 5:
+				//Nodos más y menos conectados
+				break;
+				
+				case 6:
+				//Djistra
+				System.out.println(" ");
+				int indNodo;
+				int fNodo;
+				System.out.println("Ingrese el número de la persona origen: ");
+				/*while (scan.nextInt()>14 || scan.nextInt()==0)
+				{
+					System.out.println("Debe ingresar un número del 1 al 14");
+					System.out.println("Ingrese el número de la persona origen: ");
+				}*/
+				indNodo= scan.nextInt()-1;
+				int iNodo=indNodo;
+				System.out.println("Ingrese el número de la persona destino (para mostrar todas las relaciones ingrese 0): ");
+				/*while (scan.nextInt()>14)
+				{
+					System.out.println("Debe ingresar un número del 0 al 14");
+					System.out.println("Ingrese el número de la persona destino (para mostrar todas las relaciones ingrese 0): ");
+				}*/
+				fNodo= scan.nextInt() -1;
+				
+				long[] nodos= {9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999};
+				boolean[] temporales={false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+				int[] desde= new int[14];
 			
-			for (int i=0; i<14; i++)
+				nodos[indNodo]=0;
+				desde[indNodo]=indNodo;
+				//temporales[indNodo]=true;
+			
+				for(int z=0; z<14; z++)
+				{
+					//establecer nodos temporales
+					for(int i=0; i<vectorId.size(); i++)
+					{
+						//System.out.println("LOOP "+i);
+						//System.out.println("indNodo: "+indNodo);
+						Relationship r3= db.getRelationshipById(vectorId.get(i));
+						int nA= (int)r3.getStartNode().getId();
+						int nB= (int)r3.getEndNode().getId();
+						long l1= (long) r3.getProperty("cant");
+						
+						if(nA==indNodo)
+						{
+							if (nodos[nB]>(nodos[indNodo]+l1))
+							{
+								nodos[nB]=nodos[indNodo]+l1;
+								desde[nB]=indNodo;
+							}
+						}
+					}
+					// encontrar el menor de los nodos temporales
+					long b= 10000;
+					int k=-1;
+					for(int j=0; j<nodos.length; j++)
+					{
+						//System.out.println("it"+j+" k= "+k);
+						long d= nodos[j];
+						//System.out.println("b="+b+" d="+d);
+						if(temporales[j]==false)
+						{
+							if (d<=b)
+							{
+								b=d;
+								k=j;
+							}
+						}
+					}
+					//System.out.println("k= "+k);
+					// establecer minimo como fijo
+					temporales[k]=true;
+					// cambiar nodo de partida
+					indNodo=k;		
+					
+				}
+			
+				/*for (int i=0; i<14; i++)
+				{
+					System.out.println(nodos[i]+" "+desde[i]+" "+ temporales[i]);
+				}*/
+			
+				if (fNodo==-1)
+				{
+					//para todos los nodos
+					for (int i=0; i<14; i++)
+					{
+						long cco= nodos[i];
+						if(cco==9999)
+							System.out.println("Per"+(iNodo+1)+" no le ha enviado correos a Per"+(i+1));
+						else	
+							System.out.println("La cantidad mínima de correos enviados de Per"+(iNodo+1)+" a Per"+(i+1)+" es: "+cco);
+					}
+					
+				}
+				else{
+				//dado un nodo destino 
+				long cor=nodos[fNodo];
+				if(cor==9999)
+					System.out.println("Per"+(iNodo+1)+" no le ha enviado correos a Per"+(fNodo+1));
+				else
+					System.out.println("La cantidad mínima de correos enviados de Per"+(iNodo+1)+" a Per"+(fNodo+1)+" es: "+cor);
+				}
+				break;
+				
+				case 7:
+					tx.success();
+					System.exit(0);
+					break;
+			}}
+			catch(Exception e)
 			{
-				System.out.println(nodos[i]+" "+desde[i]+" "+ temporales[i]);
+				System.out.println("Seleccione una opcion correcta");
+				System.out.println("");
+				scan.nextLine();
 			}
-			
-			long cor=nodos[fNodo];
-			if(cor==9999)
-				System.out.println("Per"+(iNodo+1)+" no le ha enviado correos a Per"+(fNodo+1));
-			else
-				System.out.println("La cantidad mínima de correos enviados de Per"+(iNodo+1)+" a Per"+(fNodo+1)+" es: "+cor);
-			
-			tx.success();
 		}
+		//tx.success();
 	}
 
+}
 }
