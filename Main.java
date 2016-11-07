@@ -156,6 +156,68 @@ public class Main {
 			{
 				System.out.println(" Per "+(PR4.get(i)+1));
 			}
+			
+			//Djistra
+			int indNodo=0;
+			long[] nodos= {9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999,9999};
+			boolean[] temporales={false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+			int[] desde= new int[14];
+			
+			nodos[indNodo]=0;
+			desde[indNodo]=indNodo;
+			//temporales[indNodo]=true;
+			
+			for(int z=0; z<14; z++)
+			{
+				//establecer nodos temporales
+				for(int i=0; i<vectorId.size(); i++)
+				{
+					//System.out.println("LOOP "+i);
+					//System.out.println("indNodo: "+indNodo);
+					Relationship r3= db.getRelationshipById(vectorId.get(i));
+					int nA= (int)r3.getStartNode().getId();
+					int nB= (int)r3.getEndNode().getId();
+					long l1= (long) r3.getProperty("cant");
+					
+					if(nA==indNodo)
+					{
+						if (nodos[nB]>(nodos[indNodo]+l1))
+						{
+							nodos[nB]=nodos[indNodo]+l1;
+							desde[nB]=indNodo;
+						}
+					}
+				}
+				// encontrar el menor de los nodos temporales
+				long b= 10000;
+				int k=-1;
+				for(int j=0; j<nodos.length; j++)
+				{
+					//System.out.println("it"+j+" k= "+k);
+					long d= nodos[j];
+					//System.out.println("b="+b+" d="+d);
+					if(temporales[j]==false)
+					{
+						if (d<=b)
+						{
+							b=d;
+							k=j;
+						}
+					}
+				}
+				//System.out.println("k= "+k);
+				// establecer minimo como fijo
+				temporales[k]=true;
+				// cambiar nodo de partida
+				indNodo=k;		
+				
+			}
+			
+			for (int i=0; i<14; i++)
+			{
+				System.out.println(nodos[i]+" "+desde[i]+" "+ temporales[i]);
+			}
+			
 			tx.success();
 		}
 	}
