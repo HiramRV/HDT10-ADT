@@ -5,19 +5,17 @@
 *@since 2016-11-07
 */
  import java.util.Iterator;
- import java.util.Scanner;
- 
- 
     import org.graphstream.graph.*;
     import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
+
 
     public class GraphExplore {
-    	//public static void main(String args[]) {
     	
     		/**Atributos***/
     		private MultiGraph graph;
-    		//new GraphExplore2();
-	//}
+    		
+
     		/**
     	 	 * Constructor sin parametros, crea un grafo con multiples relaciones
     	 	 * @param ninguno
@@ -27,12 +25,14 @@
         	
         	
     		Graph graph = new MultiGraph("Grafo 1");
+    		//Mostrar el grafo en pantalla
+    		Viewer viewer = graph.display();
     		//Atributos de los nodos
     		graph.addAttribute("ui.stylesheet", styleSheet);
     		graph.setAutoCreate(true);
             graph.setStrict(false);
-            //Mostrar el grafo en pantalla
-            graph.display(true);
+            
+           
                
             //Se crean los nodos
     		graph.addNode("Per1" );
@@ -141,9 +141,20 @@
 
             explore(graph.getNode("Per1"));
            
-            
+          //Se muestra un tiempo en pantalla
+            sleep();
+            //Se cierra
+            viewer.close();
         }
         
+        /**
+         * Hace un delay entre procesos 
+         * @param none
+         * @return  none
+         */
+        protected void sleep() {
+            try { Thread.sleep(5000); } catch (Exception e) {}
+        }
         
         /**
      	 * Recorre todos los nodos y les agrega los atributos que mostraran 
