@@ -54,12 +54,15 @@ public class Main {
 				
 				case 1:
 				GraphExplore g1= new GraphExplore();
+				System.out.println(" ");
+				System.out.println("Para ver el grafo vea la ventana que acaba de abirse. \n (No la cierre, esta se cerrará automaticamente al salir.)");
 				break;
 				
 				case 2:
 				GraphExplore2 g2= new GraphExplore2();
 					//relaciones con más de 6 correos
-					/*String masD6= "Relaciones con más de 6 correos \n";
+					System.out.println(" ");
+					String masD6= "Relaciones con más de 6 correos \n";
 					for(int j=0; j<vectorId.size(); j++){
 						if(vectorCant.get(j)>6){
 							masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getStartNode().getProperty("nombre");
@@ -67,7 +70,8 @@ public class Main {
 							masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getEndNode().getProperty("nombre");
 							masD6= masD6 + "\n";
 						}}
-					System.out.println(masD6);*/
+					System.out.println(masD6);
+					System.out.println("Para ver el grafo vea la ventana que acaba de abirse. \n (No la cierre, esta se cerrará automaticamente al salir.)");
 				break;
 				
 				case 3: 
@@ -178,17 +182,49 @@ public class Main {
 					PR4.add(k);
 					PR3.set(k,0.0);
 				}
-			
-				System.out.println("Page Rank");
+				System.out.println(" ");
+				System.out.println("Personas ordenadas según métrica Page Rank:");
 				for (int i=0; i<14; i++)
 				{
-					System.out.println(" Per "+(PR4.get(i)+1));
+					System.out.println(" Per"+(PR4.get(i)+1));
 				}
 			
 				break;
 				
 				case 5:
 				//Nodos más y menos conectados
+				int[] grados= new int[14];
+				
+				for (int i=0; i<14; i++)
+				{
+					grados[i]=db.getNodeById(i).getDegree(Direction.BOTH);
+				}
+				int[] orden= new int[14];
+				int m=-1;
+				for (int i=0; i<14; i++)
+				{
+					int b1=0;
+					for(int j=0; j<14; j++)
+					{
+						int d= grados[j];
+						//System.out.println("b1= "+b1+" d= "+d);
+						if (d>=b1)
+						{
+							b1=d;
+							m=j;
+						}
+					}
+					//System.out.println("m= "+m);
+					orden[i]=m;
+					//System.out.println(grados[m]);
+					grados[m]=0;
+				}
+				System.out.println(" ");
+				System.out.println("Personas ordenadas de la más comunicada a la menos comunicada:");
+				for(int z=0; z<14; z++)
+				{
+					System.out.println(" Per"+ (orden[z]+1));
+				}
 				break;
 				
 				case 6:
@@ -295,6 +331,8 @@ public class Main {
 				break;
 				
 				case 7:
+					System.out.println("");
+					System.out.println("¡Gracias por usar el programa!");
 					tx.success();
 					System.exit(0);
 					break;
