@@ -144,7 +144,7 @@ import org.graphstream.ui.view.Viewer;
           //Se muestra un tiempo en pantalla
             sleep();
             //Se cierra
-            viewer.close();
+            //viewer.
         }
         
         /**

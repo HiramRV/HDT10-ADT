@@ -22,10 +22,10 @@ public class Main {
 		GraphDatabaseFactory dbFactory = new GraphDatabaseFactory();
 		//Se abre el archivo con la base de datos de Neo4j
 		// ***ojo, modificar este valor segun donde se almacene la base de neo4j **** ////
-		File file= new File("C:/Users/HRV/Desktop/4to ciclo/Algoritmos y Estructuras de Datos/HDT10/HDT10-ADT-master/BaseHoja10");
+		File file= new File("C:/Users/AndreaMaybell/Documents/AMPE/deberes/Algoritmos y Estructuras de Datos/BaseHoja10");
 		GraphDatabaseService db= dbFactory.newEmbeddedDatabase(file);
 		
-		//Se comenienza la coneccion con la base de datos 
+		//Se comenienza la conexion con la base de datos 
 		//Cualquier operacion realizada en estre brach afectara 
 		//Directamente la base
 		try (Transaction tx = db.beginTx()) {
@@ -42,10 +42,10 @@ public class Main {
 				}
 				catch (Exception e)
 				{
-					//System.out.println(i+" no es relaci√≥n");
+					//System.out.println(i+" no es relaciÛn");
 				}}
 			
-			//Se crea el scanner para leer la opccion que seleccion el usuario
+			//Se crea el scanner para leer la opcion que seleccion el usuario
 		Scanner scan= new Scanner(System.in);
 		int opcion=0;
 		int val=0;
@@ -55,10 +55,10 @@ public class Main {
 			System.out.println(" ");
 			System.out.println("Seleccione la accion que desea realizar:");
 			System.out.println("1. Ver grafo completo");
-			System.out.println("2. Ver relaciones con m√°s de 6 correos");
+			System.out.println("2. Ver relaciones con m·s de 6 correos");
 			System.out.println("3. Eliminar relaciones de auto-envio de correos");
-			System.out.println("4. Ver importancia de personas en la red de comunicaci√≥n con m√©trica Page Rang");
-			System.out.println("5. Ver personas m√°s y menos comunicadas");
+			System.out.println("4. Ver importancia de personas en la red de comunicaciÛn con mÈtrica Page Rang");
+			System.out.println("5. Ver personas m·s y menos comunicadas");
 			System.out.println("6. Ver cantidad de correos entre personas");
 			System.out.println("7. Salir");
 			
@@ -67,35 +67,35 @@ public class Main {
 				switch(opcion){
 				
 				case 1:
-					//Se crea el gr√°fo completo 
+					//Se crea el gr·fo completo 
 				GraphExplore g1= new GraphExplore();
 				System.out.println(" ");
 				//Se imprime un mensaje al usuario
-				System.out.println("Para ver el grafo vea la ventana que acaba de abirse. \n (No la cierre, esta se cerrar√° automaticamente al salir.)");
+				System.out.println("Para ver el grafo vea la ventana que acaba de abirse. \n (No la cierre, esta se cerrar· automaticamente al salir.)");
 				break;
 				
 				case 2:
-					//Se crea el gr√°fo con relaciones de solo m√°s de 
+					//Se crea el gr·fo con relaciones de solo m·s de 
 					//6 Correos
 				GraphExplore2 g2= new GraphExplore2();
-					//relaciones con m√°s de 6 correos
+					//relaciones con m·s de 6 correos
 					System.out.println(" ");
-					String masD6= "Relaciones con m√°s de 6 correos \n";
-					//Se seleccionan todas las relaciones que tienen m√°s de 6 correos 
+					String masD6= "Relaciones con m·s de 6 correos \n";
+					//Se seleccionan todas las relaciones que tienen m·s de 6 correos 
 					for(int j=0; j<vectorId.size(); j++){
 						if(vectorCant.get(j)>6){
 							masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getStartNode().getProperty("nombre");
-							masD6= masD6 + " envi√≥ "+ vectorCant.get(j) + " correos a: ";
+							masD6= masD6 + " enviÛ "+ vectorCant.get(j) + " correos a: ";
 							masD6= masD6 + db.getRelationshipById(vectorId.get(j)).getEndNode().getProperty("nombre");
 							masD6= masD6 + "\n";
 						}}
 					//Se imprimen todas las relaciones 
 					System.out.println(masD6);
-					System.out.println("Para ver el grafo vea la ventana que acaba de abirse. \n (No la cierre, esta se cerrar√° automaticamente al salir.)");
+					System.out.println("Para ver el grafo vea la ventana que acaba de abirse. \n (No la cierre, esta se cerrar· automaticamente al salir.)");
 				break;
 				
 				case 3: 
-				//eliminar relaciones de autoenv√≠o 
+				//eliminar relaciones de autoenvÌo 
 				for(int k=0; k<vectorId.size(); k++)
 				{
 					//Se buscan todas las relaciones que empiecen y terminen en el mismo nodo
@@ -107,7 +107,7 @@ public class Main {
 						r.delete();
 					}
 				}
-				System.out.println("Se han eliminado las relaciones de autoenv√≠o exitosamente");
+				System.out.println("Se han eliminado las relaciones de autoenvÌo exitosamente");
 				break;
 			
 				case 4:
@@ -128,11 +128,11 @@ public class Main {
 				for (int m=0; m<vectorId.size(); m++)
 				{
 					Relationship r2= db.getRelationshipById(vectorId.get(m));
-					//Se obtiene el √∫ltimo nodo
+					//Se obtiene el ˙ltimo nodo
 					int n1= (int) r2.getEndNode().getId();
 					//Se  obtiene el primer todo 
 					int n2= (int) r2.getStartNode().getId();
-					//Cada vez que un nodo sea el nodo final, se agregar√° 
+					//Cada vez que un nodo sea el nodo final, se agregar· 
 					// Un valor de relevancia para el Page Rank
 					if (n1==0)
 						c1=c1+((PR1.get(n2))/(C.get(n2)));
@@ -200,7 +200,7 @@ public class Main {
 						//System.out.println("it"+j+" k= "+k);
 						double d= PR3.get(j);
 						//System.out.println("b="+b+" d="+d);
-						//Se ordenan los nodos en base a quien tiene el valor de relevancia m√°s alto
+						//Se ordenan los nodos en base a quien tiene el valor de relevancia m·s alto
 						if (d>=b)
 						{
 							b=d;
@@ -211,7 +211,7 @@ public class Main {
 					PR3.set(k,0.0);
 				}
 				System.out.println(" ");
-				System.out.println("Personas ordenadas seg√∫n m√©trica Page Rank:");
+				System.out.println("Personas ordenadas seg˙n mÈtrica Page Rank:");
 				//Se imprimen en orden los nodos
 				for (int i=0; i<14; i++)
 				{
@@ -221,7 +221,7 @@ public class Main {
 				break;
 				
 				case 5:
-				//Funcion para mostrar los Nodos m√°s y menos conectados
+				//Funcion para mostrar los Nodos m·s y menos conectados
 				int[] grados= new int[14];
 				
 				for (int i=0; i<14; i++)
@@ -251,7 +251,7 @@ public class Main {
 					grados[m]=0;
 				}
 				System.out.println(" ");
-				System.out.println("Personas ordenadas de la m√°s comunicada a la menos comunicada:");
+				System.out.println("Personas ordenadas de la m·s comunicada a la menos comunicada:");
 				//Se imprime el nombre de las personas segun el array ya ordenado
 				for(int z=0; z<14; z++)
 				{
@@ -266,21 +266,21 @@ public class Main {
 				System.out.println(" ");
 				int indNodo;
 				int fNodo;
-				//Se pide el ingreso de la persona origen de la b√∫squeda 
-				System.out.println("Ingrese el n√∫mero de la persona origen: ");
+				//Se pide el ingreso de la persona origen de la b˙squeda 
+				System.out.println("Ingrese el n˙mero de la persona origen: ");
 				/*while (scan.nextInt()>14 || scan.nextInt()==0)
 				{
-					System.out.println("Debe ingresar un n√∫mero del 1 al 14");
-					System.out.println("Ingrese el n√∫mero de la persona origen: ");
+					System.out.println("Debe ingresar un n˙mero del 1 al 14");
+					System.out.println("Ingrese el n˙mero de la persona origen: ");
 				}*/
 				indNodo= scan.nextInt()-1;
 				int iNodo=indNodo;
 				//Se pide el ingreso de la persona "Final" en la busqueda
-				System.out.println("Ingrese el n√∫mero de la persona destino (para mostrar todas las relaciones ingrese 0): ");
+				System.out.println("Ingrese el n˙mero de la persona destino (para mostrar todas las relaciones ingrese 0): ");
 				/*while (scan.nextInt()>14)
 				{
-					System.out.println("Debe ingresar un n√∫mero del 0 al 14");
-					System.out.println("Ingrese el n√∫mero de la persona destino (para mostrar todas las relaciones ingrese 0): ");
+					System.out.println("Debe ingresar un n˙mero del 0 al 14");
+					System.out.println("Ingrese el n˙mero de la persona destino (para mostrar todas las relaciones ingrese 0): ");
 				}*/
 				fNodo= scan.nextInt() -1;
 				
@@ -356,7 +356,7 @@ public class Main {
 						if(cco==9999)
 							System.out.println("Per"+(iNodo+1)+" no le ha enviado correos a Per"+(i+1));
 						else	
-							System.out.println("La cantidad m√≠nima de correos enviados de Per"+(iNodo+1)+" a Per"+(i+1)+" es: "+cco);
+							System.out.println("La cantidad mÌnima de correos enviados de Per"+(iNodo+1)+" a Per"+(i+1)+" es: "+cco);
 					}
 					
 				}
@@ -368,7 +368,7 @@ public class Main {
 					System.out.println("Per"+(iNodo+1)+" no le ha enviado correos a Per"+(fNodo+1));
 				else
 					//Caso contrario
-					System.out.println("La cantidad m√≠nima de correos enviados de Per"+(iNodo+1)+" a Per"+(fNodo+1)+" es: "+cor);
+					System.out.println("La cantidad mÌnima de correos enviados de Per"+(iNodo+1)+" a Per"+(fNodo+1)+" es: "+cor);
 				}
 				break;
 				
@@ -376,7 +376,7 @@ public class Main {
 				//Salida dle menu
 				case 7:
 					System.out.println("");
-					System.out.println("¬°Gracias por usar el programa!");
+					System.out.println("°Gracias por usar el programa!");
 					tx.success();
 					System.exit(0);
 					break;
@@ -388,7 +388,7 @@ public class Main {
 				scan.nextLine();
 			}
 		}
-		//tx.success();
+		tx.success();
 	}
 
 }

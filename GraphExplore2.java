@@ -87,7 +87,7 @@ public GraphExplore2(){
     //Se muestra un tiempo en pantalla
     sleep();
     //Se cierra
-    viewer.close();
+    //viewer.close();
 }
 
 
